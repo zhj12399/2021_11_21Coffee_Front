@@ -45,7 +45,7 @@ export default {
       MaxData: [],
       todaycups: 0,
       todaycaffeine: 0,
-      nowCaffeine:0,
+      nowCaffeine: 0,
       LastDrink: '',
     }
   },
@@ -82,7 +82,7 @@ export default {
                 if (this.StartTime.getHours() + i > 23) {
                   xdatastring = (this.StartTime.getHours() + i - 24).toString() + ":" + this.StartTime.getMinutes().toString()
                 } else {
-                  xdatastring =(this.StartTime.getHours() + i).toString() + ":" + this.StartTime.getMinutes().toString()
+                  xdatastring = (this.StartTime.getHours() + i).toString() + ":" + this.StartTime.getMinutes().toString()
                 }
                 this.Xdata.push(xdatastring)
                 this.Ydata.push((this.StartCaffeine * Math.pow(0.5, i / 4)).toFixed(2))
@@ -90,10 +90,10 @@ export default {
                 this.MaxData.push(400)
               }
 
-              this.LastDrink = "您上一次饮用饮品的时间是："+this.StartTime.getFullYear() + "年" + (this.StartTime.getMonth()+1).toString() + "月" + this.StartTime.getDate() + "日 "
+              this.LastDrink = "您上一次饮用饮品的时间是：" + this.StartTime.getFullYear() + "年" + (this.StartTime.getMonth() + 1).toString() + "月" + this.StartTime.getDate() + "日 "
                   + this.StartTime.getHours() + ":" + this.StartTime.getMinutes()
-              var deltatime = (nowtime.getTime() - this.StartTime.getTime())/1000/3600
-              this.nowCaffeine = this.StartCaffeine *Math.pow(0.5,deltatime/4).toFixed(2)
+              var deltatime = (nowtime.getTime() - this.StartTime.getTime()) / 1000 / 3600
+              this.nowCaffeine = (this.StartCaffeine * Math.pow(0.5, deltatime / 4)).toFixed(2)
             },
             (err) => {
               this.$message({
