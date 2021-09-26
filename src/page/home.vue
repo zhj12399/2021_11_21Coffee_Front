@@ -90,10 +90,17 @@ export default {
                 this.MaxData.push(400)
               }
 
-              this.LastDrink = "您上一次饮用饮品的时间是：" + this.StartTime.getFullYear() + "年" + (this.StartTime.getMonth() + 1).toString() + "月" + this.StartTime.getDate() + "日 "
-                  + this.StartTime.getHours() + ":" + this.StartTime.getMinutes()
+
+
               var deltatime = (nowtime.getTime() - this.StartTime.getTime()) / 1000 / 3600
               this.nowCaffeine = (this.StartCaffeine * Math.pow(0.5, deltatime / 4)).toFixed(2)
+              if(this.nowCaffeine<1){
+                this.LastDrink = "您很久没喝咖啡了，您上一次饮用饮品的时间是：" + this.StartTime.getFullYear() + "年" + (this.StartTime.getMonth() + 1).toString() + "月" + this.StartTime.getDate() + "日 "
+                + this.StartTime.getHours() + ":" + this.StartTime.getMinutes()
+              }else {
+                this.LastDrink = "您上一次饮用饮品的时间是：" + this.StartTime.getFullYear() + "年" + (this.StartTime.getMonth() + 1).toString() + "月" + this.StartTime.getDate() + "日 "
+                    + this.StartTime.getHours() + ":" + this.StartTime.getMinutes()
+              }
             },
             (err) => {
               this.$message({

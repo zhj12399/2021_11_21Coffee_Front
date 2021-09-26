@@ -15,7 +15,7 @@
         <li>
           <el-button type="primary" @click='revisepassword'>修改密码</el-button>
           <el-button type="primary" @click='revisename'>修改昵称</el-button>
-          <el-button type="primary" @click='deletepeople'>注销账户</el-button>
+          <el-button type="primary" @click='deletepeople'>删除账户</el-button>
         </li>
       </ul>
     </div>
