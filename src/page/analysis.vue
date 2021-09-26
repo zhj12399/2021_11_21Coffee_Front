@@ -59,8 +59,8 @@ export default {
               }
               this.LastMonthSum = this.LastMonthSum.toFixed(2)
               this.LastWeekSum = this.LastWeekSum.toFixed(2)
-              this.LastWeekAvg = (this.LastWeekSum / 7).toFixed(2)
-              this.LastMonthAvg = (this.LastMonthSum / 30).toFixed(2)
+              this.LastWeekAvg = (this.LastWeekSum / 7.0).toFixed(2)
+              this.LastMonthAvg = (this.LastMonthSum / 30.0).toFixed(2)
             },
             (err) => {
               this.$message({

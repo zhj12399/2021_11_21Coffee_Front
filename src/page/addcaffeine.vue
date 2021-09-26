@@ -108,7 +108,7 @@ export default {
   methods: {
     addcaffeinerecord() {
       if (this.formData.percent === '1') {
-        this.sqlData.percent = 1;
+        this.sqlData.percent = 1.0;
       } else if (this.formData.percent === '2') {
         this.sqlData.percent = 0.75;
       } else if (this.formData.percent === '3') {
