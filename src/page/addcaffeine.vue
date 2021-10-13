@@ -235,7 +235,7 @@ export default {
           this.sqlData.caffeine = 50 * this.sqlData.percent;
         }
       }
-      else if (this.formData.brand === '5') {//雀巢
+      else if (this.formData.brand === '5') {//其它
         this.sqlData.brand = '其它';
         this.sqlData.cups = '正常';
         if (this.formData.type === '1') {
