@@ -107,6 +107,24 @@ export default {
       )
     },*/
     getCaffeineList() {
+      this.$axios.post('People/ExistPeople/'+ sessionStorage.getItem("loginid"))
+          .then(
+              (data)=>{
+                if(!data.data){
+                  sessionStorage.setItem("loginid","")
+                  this.$message({
+                    type: 'info',
+                    message: '请您重新登录'
+                  });
+                  this.$router.push('/')
+                }
+              },
+              (err) => {
+                this.$message({
+                  type: 'error',
+                  message: '错误信息：' + err
+                });
+              })
       this.$axios.post('Caffeine/getCaffeineRecordById/' + sessionStorage.getItem("loginid"))
           .then(
               (data) => {
