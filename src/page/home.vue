@@ -24,6 +24,9 @@
       <el-row :gutter="8">
         下图是您上一次饮用咖啡之后，咖啡因衰减的图表
       </el-row>
+      <el-row :gutter="8">
+        {{ SleepTime }}
+      </el-row>
     </section>
     <div id="chartLineBox" style="width: 90%;height:450px;"></div>
   </div>
@@ -47,6 +50,7 @@ export default {
       todaycaffeine: 0,
       nowCaffeine: 0,
       LastDrink: '',
+      SleepTime: '您大约在 正在读取中 降至睡眠量'
     }
   },
   created() {
@@ -90,8 +94,23 @@ export default {
                 this.MaxData.push(400)
               }
 
+              //上一次饮用距现在的时间差
               var deltatime = (nowtime.getTime() - this.StartTime.getTime()) / 1000.0 / 3600.0
+              //计算出现在的咖啡因量
               this.nowCaffeine = (this.StartCaffeine * Math.pow(0.5, deltatime / 4.0)).toFixed(2)
+              //计算距离睡眠量的时间差
+              var delta_sleeptime = 4 * Math.log(100.0 / this.StartCaffeine) / Math.log(0.5)
+              //得出睡眠的时间
+              var sleeptime = new Date(this.StartTime.getTime() + delta_sleeptime * 3600 * 1000)
+
+
+              if (this.StartCaffeine < 100) {
+                this.SleepTime = "此时已经低于睡眠值了,可以入睡啦"
+              } else {
+                this.SleepTime = "您大约在" + sleeptime.getFullYear() + "-" + (Array(2).join(0)+(sleeptime.getMonth()+1).toString()).slice(-2) + "-" + (Array(2).join(0)+sleeptime.getDate().toString()).slice(-2) + " " + (Array(2).join(0)+sleeptime.getHours().toString()).slice(-2) + ":" + (Array(2).join(0)+sleeptime.getMinutes().toString()).slice(-2) + "降至睡眠量"
+                //this.SleepTime = this.StartTime.getTime()+ delta_sleeptime * 3600 * 1000
+              }
+
               if (this.nowCaffeine < 1) {
                 this.LastDrink = "您很久没喝咖啡了，您上一次饮用饮品的时间是：" + this.StartTime.getFullYear() + "年" + (this.StartTime.getMonth() + 1).toString() + "月" + this.StartTime.getDate() + "日 "
                     + this.StartTime.getHours() + ":" + this.StartTime.getMinutes()
