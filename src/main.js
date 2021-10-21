@@ -6,7 +6,7 @@ import router from './router'
 import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.config.productionTip = false
-axios.defaults.baseURL = 'http://zhj12399.cn:9000/api/'
+axios.defaults.baseURL = 'https://zhj12399.cn:9000/api/'
 Vue.prototype.$axios = axios
 Vue.config.productionTip = false
 Vue.use(ElementUI);
