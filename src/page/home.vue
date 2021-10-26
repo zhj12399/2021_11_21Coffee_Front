@@ -22,10 +22,10 @@
         {{ LastDrink }}
       </el-row>
       <el-row :gutter="8">
-        下图是您上一次饮用咖啡之后，咖啡因衰减的图表
+        {{ SleepTime }}
       </el-row>
       <el-row :gutter="8">
-        {{ SleepTime }}
+        下图是您上一次饮用咖啡之后，咖啡因衰减的图表
       </el-row>
     </section>
     <div id="chartLineBox" style="width: 90%;height:450px;"></div>
