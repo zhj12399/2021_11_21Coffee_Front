@@ -62,24 +62,24 @@ export default {
   mounted() {
     var nowtime = new Date();
     var nowtimestr = nowtime.getFullYear() + '-' + (nowtime.getMonth() + 1) + '-' + nowtime.getDate()
-    this.$axios.post('People/ExistPeople/'+ sessionStorage.getItem("loginid"))
-    .then(
-        (data)=>{
-          if(!data.data){
-            sessionStorage.setItem("loginid","")
-            this.$message({
-              type: 'info',
-              message: '请您重新登录'
-            });
-            this.$router.push('/')
-          }
-        },
-        (err) => {
-          this.$message({
-            type: 'error',
-             message: '错误信息：' + err
-        });
-    })
+    this.$axios.post('People/ExistPeople/' + sessionStorage.getItem("loginid"))
+        .then(
+            (data) => {
+              if (!data.data) {
+                sessionStorage.setItem("loginid", "")
+                this.$message({
+                  type: 'info',
+                  message: '请您重新登录'
+                });
+                this.$router.push('/')
+              }
+            },
+            (err) => {
+              this.$message({
+                type: 'error',
+                message: '错误信息：' + err
+              });
+            })
     this.$axios.post('Caffeine/getTodayCaffeineRecord?id=' + sessionStorage.getItem("loginid") +
         '&time=' + nowtimestr).then(
         (data) => {
@@ -125,7 +125,11 @@ export default {
               if (this.StartCaffeine < 100) {
                 this.SleepTime = "此时已经低于睡眠值了,可以入睡啦"
               } else {
-                this.SleepTime = "您大约在" + sleeptime.getFullYear() + "-" + (Array(2).join(0)+(sleeptime.getMonth()+1).toString()).slice(-2) + "-" + (Array(2).join(0)+sleeptime.getDate().toString()).slice(-2) + " " + (Array(2).join(0)+sleeptime.getHours().toString()).slice(-2) + ":" + (Array(2).join(0)+sleeptime.getMinutes().toString()).slice(-2) + "降至睡眠量"
+                if (this.nowCaffeine < 100) {
+                  this.SleepTime = "此时已经低于睡眠值了,可以入睡啦，您大约已在" + sleeptime.getFullYear() + "-" + (Array(2).join(0) + (sleeptime.getMonth() + 1).toString()).slice(-2) + "-" + (Array(2).join(0) + sleeptime.getDate().toString()).slice(-2) + " " + (Array(2).join(0) + sleeptime.getHours().toString()).slice(-2) + ":" + (Array(2).join(0) + sleeptime.getMinutes().toString()).slice(-2) + "降至睡眠量"
+                } else {
+                  this.SleepTime = "您大约将在" + sleeptime.getFullYear() + "-" + (Array(2).join(0) + (sleeptime.getMonth() + 1).toString()).slice(-2) + "-" + (Array(2).join(0) + sleeptime.getDate().toString()).slice(-2) + " " + (Array(2).join(0) + sleeptime.getHours().toString()).slice(-2) + ":" + (Array(2).join(0) + sleeptime.getMinutes().toString()).slice(-2) + "降至睡眠量"
+                }
               }
 
               if (this.nowCaffeine < 1) {

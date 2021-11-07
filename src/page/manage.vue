@@ -9,6 +9,10 @@
           <el-menu-item index="analysis"><i class="el-icon-star-on"></i>分析</el-menu-item>
           <el-menu-item index="userset"><i class="el-icon-setting"></i>账户设置</el-menu-item>
           <el-menu-item index="explain"><i class="el-icon-warning"></i>说明</el-menu-item>
+          <img :src="coffee_android_Url" width="113" height="113">
+          <el-menu-item @click="go()">下载安卓App</el-menu-item>
+          <img :src="coffee_mini_Url" width="113" height="113">
+          <el-menu-item>打开微信小程序</el-menu-item>
         </el-menu>
       </el-col>
       <el-col :span="20" style="height: 100%;overflow: auto;">
@@ -22,6 +26,17 @@
 
 <script>
 export default {
+  data() {
+    return{
+      coffee_android_Url:require("../assets/coffee_android.png"),
+      coffee_mini_Url:require("../assets/coffee_mini.png")
+    }
+  },
+  methods:{
+    go(){
+      window.open("http://zhj12399.cn:8080/coffee.apk","_blank")
+    }
+  },
   computed: {
     defaultActive: function () {
       return this.$route.path.replace('/', '');

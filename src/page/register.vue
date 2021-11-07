@@ -10,13 +10,16 @@
         </div>
         <el-form :model="loginForm" :rules="rules" ref="loginForm">
           <el-form-item prop="username">
-            <el-input v-model="loginForm.username" placeholder="用户名" clearable><span>dsfsf</span></el-input>
+            <el-input v-model="loginForm.username" placeholder="用户名" maxlength = "15" clearable><span>dsfsf</span></el-input>
           </el-form-item>
           <el-form-item prop="password1">
-            <el-input type="password" placeholder="密码" v-model="loginForm.password1" maxlength = "10" clearable></el-input>
+            <el-input type="password" placeholder="密码" v-model="loginForm.password1" maxlength = "20" clearable></el-input>
           </el-form-item>
           <el-form-item prop="password2">
-            <el-input type="password" placeholder="确认密码" v-model="loginForm.password2" maxlength = "10" clearable></el-input>
+            <el-input type="password" placeholder="确认密码" v-model="loginForm.password2" maxlength = "20" clearable></el-input>
+          </el-form-item>
+          <el-form-item prop="email">
+            <el-input placeholder="邮箱（用于找回密码）" v-model="loginForm.email" maxlength = "20" clearable></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click='register' class="submit_btn">注册</el-button>
@@ -36,7 +39,8 @@ export default {
       loginForm: {
         username: '',
         password1: '',
-        password2: ''
+        password2: '',
+        email:'',
       },
       rules: {
         username: [
@@ -48,6 +52,9 @@ export default {
         password2: [
           {required: true, message: '请确认密码', trigger: 'blur'}
         ],
+        email: [
+          {required: true, message: '请输入邮箱', trigger: 'blur'}
+        ],
       },
       showLogin: false,
       dialogVisible: false
@@ -55,7 +62,7 @@ export default {
   },
   methods: {
     register() {
-      if (this.loginForm.username.length === 0 || this.loginForm.password1.length === 0 || this.loginForm.password2.length === 0) {
+      if (this.loginForm.username.length === 0 || this.loginForm.password1.length === 0 || this.loginForm.password2.length === 0||this.loginForm.email.length===0) {
         this.$message({
           type: 'warning',
           message: "请完整填写表格"
@@ -69,7 +76,8 @@ export default {
         } else {
           this.$axios.post('People/AddPeople', {
             "name": this.loginForm.username,
-            "password": this.loginForm.password1
+            "password": this.loginForm.password1,
+            "email":this.loginForm.email
           }).then(
               (data) => {
                 if (data.data!==0){
@@ -136,7 +144,7 @@ export default {
 }
 
 .form_contianer {
-  .wh(320px, 210px);
+  .wh(320px, 290px);
   .ctp(320px, 210px);
   padding: 25px;
   border-radius: 5px;

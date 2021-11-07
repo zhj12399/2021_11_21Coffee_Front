@@ -21,6 +21,9 @@
           <el-form-item>
             <el-button type="primary" @click='Go_register' class="submit_btn">注册</el-button>
           </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click='Find_password' class="submit_btn">找回密码</el-button>
+          </el-form-item>
         </el-form>
       </section>
     </transition>
@@ -52,24 +55,23 @@ export default {
       this.$router.push('register')
     },
     Go_login() {
-      if(this.loginForm.username.length !== 0 ){
-        if(this.loginForm.password.length !== 0){
+      if (this.loginForm.username.length !== 0) {
+        if (this.loginForm.password.length !== 0) {
           this.$axios.post('People/JudgePassword', {
             "name": this.loginForm.username,
             "password": this.loginForm.password
           }).then(
               (data) => {
-                if (data.data!==0){
+                if (data.data !== 0) {
                   this.$message({
                     type: 'success',
                     message: "登陆成功"
                   });
-                  sessionStorage.setItem("loginid",data.data.toString())
+                  sessionStorage.setItem("loginid", data.data.toString())
                   this.$router.push('manage')
-                }
-                else{
-                  this.loginForm.password=""
-                  this.loginForm.username=""
+                } else {
+                  this.loginForm.password = ""
+                  this.loginForm.username = ""
                   this.$message({
                     type: 'error',
                     message: "账号或密码错误"
@@ -83,20 +85,47 @@ export default {
                 });
                 this.$router.push('/');
               })
-        }
-        else {
+        } else {
           this.$message({
             type: 'warning',
             message: "密码不能为空"
           });
         }
-      }
-      else {
+      } else {
         this.$message({
           type: 'warning',
           message: "用户名不能为空"
         });
       }
+    },
+    Find_password() {
+      this.$prompt('请输入您的昵称', '找回密码', {
+        confirmButtonText: 'OK',
+        cancelButtonText: 'Cancel',
+      }).then(({value}) => {
+        this.$axios.post('People/SentPasswordMail?username=' + value)
+            .then(
+                (data) => {
+                  if (data.data) {
+                    this.$message({
+                      type: 'info',
+                      message: '密码已发送至您的邮箱'
+                    });
+                  }
+                  else {
+                    this.$message({
+                      type: 'info',
+                      message: '查无此人'
+                    });
+                  }
+                },
+                (err) => {
+                  this.$message({
+                    type: 'error',
+                    message: '错误信息：' + err
+                  });
+                })
+      })
     }
   },
   mounted() {
@@ -137,7 +166,7 @@ export default {
 }
 
 .form_contianer {
-  .wh(320px, 210px);
+  .wh(320px, 290px);
   .ctp(320px, 210px);
   padding: 25px;
   border-radius: 5px;

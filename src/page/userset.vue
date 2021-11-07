@@ -66,7 +66,7 @@ export default {
       this.$prompt('请输入修改的密码', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
-        inputPattern: /^[a-zA-Z0-9]{1,10}$/,
+        inputPattern: /^[a-zA-Z0-9]{1,15}$/,
         inputErrorMessage: '密码格式不正确'
       }).then(({value}) => {
         this.$axios.post('People/updatePasswordById?id=' + sessionStorage.getItem("loginid") +
